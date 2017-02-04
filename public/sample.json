@@ -1,0 +1,44 @@
+{
+  "serverInfo": {
+    "phpversion" : "7.0.15",
+    "hostname": "localhost",
+    "webserver": "apache"
+  },
+
+  "content": {
+    "folders": [
+      {
+        "name": "name1",
+        "backend": true,
+        "installer": true,
+        "debug": true,
+        "branches": {
+          "core": "master"
+        },
+        "actions": {
+          "delcache": true
+        }
+      },
+      {
+        "name": "name2",
+        "backend": false,
+        "installer": true,
+        "debug": false,
+        "branches": {
+          "core": "master",
+          "core_agp": "master"
+        },
+        "actions": {
+          "delcache": false
+        }
+      }
+    ],
+    "files": [
+      {"name" : "file1" },
+      {"name" : "file2" },
+      {"name" : "file9" },
+      {"name" : "file99" }      
+    ]
+  }
+
+}

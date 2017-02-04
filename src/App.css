@@ -1,0 +1,9 @@
+body {
+  font-size: 0.8rem;
+}
+.table td, .table th {
+  padding: 0.25rem;
+}
+.btn-group {
+  padding: 1rem 0;
+}
