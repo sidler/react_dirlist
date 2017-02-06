@@ -7,40 +7,60 @@ import ServerCx from './ServerCx'
 
 class App extends Component {
 
+
+
     constructor(props) {
-        super(props)
+        super(props);
+
+        this.poll = this.poll.bind(this);
 
         this.state = {
-            "serverInfo": {},
-            "content": {}
-        }
+            serverInfo: {},
+            content: {},
+            pageviewChars : []
+        };
+
     }
 
     componentDidMount() {
-        let self = this;
-        this.poll(self);
-        setInterval(this.poll, 5000, self);
+        this.poll();
+        setInterval(this.poll, 5000);
     }
 
-    poll(self) {
+    poll() {
+        let self = this;
         let server = new ServerCx();
         server.fetchServerData(function (data) {
+            data.pageviewChars = self.parseChars(data);
             self.setState(data);
         });
     }
 
 
-    render(data) {
-        return (
+    parseChars(data) {
+        let arrChars = ["Files"];
+        let strPrevChar = null;
+        data.content.folders.forEach(function(item, i) {
+            if (strPrevChar === null || strPrevChar !== item.name[0]) {
+                strPrevChar = item.name[0];
+                arrChars.push(strPrevChar);
+            }
+        });
+        return arrChars;
 
+    }
+
+    render(data) {
+        let self = this;
+        return (
 
             <div className="container">
                 <div className="row justify-content-center">
-                    <Pageview/>
+                    <Pageview chars={this.state.pageviewChars} />
                 </div>
 
                 <div className="row">
-                    <FilelistTable props={this.state.content}/>
+                    <FilelistTable pageView={self.handlePageviewChange} props={this.state.content}/>
                 </div>
 
                 <div className="row">
@@ -49,6 +69,8 @@ class App extends Component {
             </div>
 
         );
+
+
     }
 }
 

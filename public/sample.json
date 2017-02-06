@@ -20,7 +20,7 @@
         }
       },
       {
-        "name": "name2",
+        "name": "tame2",
         "backend": false,
         "installer": true,
         "debug": false,

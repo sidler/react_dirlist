@@ -11,18 +11,36 @@ import FilelistTableRowChar from './FilelistTableRowChar'
 class FilelistTable extends Component {
 
 
+    /**
+     * Callback to pass the characters up the tree
+     * @param arrChars
+     */
+    passCharsToPageview(arrChars) {
+        if(this.props.pageView) {
+            this.props.pageView(arrChars);
+        }
+    }
+
+
+
+
+
     render() {
+
+
 
         if(this.props.props.folders === undefined) {
             return null;
         }
 
+        let arrChars = ["Files"];
         let strPrevChar = null;
         let folders = this.props.props.folders.map(function(item, i) {
             let strChar ;
             if(strPrevChar === null || strPrevChar !== item.name[0]) {
                 strPrevChar = item.name[0];
                 strChar = <FilelistTableRowChar char={strPrevChar} key={strPrevChar}/>
+                arrChars.push(strPrevChar);
             }
 
             let strFolder = <FilelistTableRowFolder name={item.name} backend={item.backend} installer={item.installer}  key={i} />
@@ -30,11 +48,14 @@ class FilelistTable extends Component {
             return ([strChar, strFolder]);
         });
 
+        this.passCharsToPageview(arrChars);
+
         let files = this.props.props.files.map(function(item, i) {
             return(
                 <FilelistTableRowFile name={item.name} key={i} />
             );
         });
+
 
 
         return (

@@ -9,7 +9,7 @@ class FilelistTableRowChar extends Component {
     render() {
         return (
             <tr >
-                <td colSpan="8" className="font-weight-bold">{this.props.char}</td>
+                <td colSpan="8" className="font-weight-bold"><a name={this.props.char} />{this.props.char}</td>
             </tr>
         );
     }
