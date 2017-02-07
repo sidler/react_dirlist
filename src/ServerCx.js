@@ -6,13 +6,10 @@ class ServerCx {
 
     strUrl = '';
 
-
     constructor() {
-        this.strUrl = '/public/sample.json';
-        this.strUrl = 'https://www.kajona.de/xml.php?module=packageserver&action=list';
-        this.strUrl = process.env.PUBLIC_URL+'/sample.json';
+        this.strUrl = process.env.PUBLIC_URL+'/dirlist/sample.json';
+        //this.strUrl = process.env.PUBLIC_URL+'/dirlist/backend.php';
     }
-
 
 
     fetchServerData(objCallback) {

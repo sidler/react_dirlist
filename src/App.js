@@ -24,6 +24,7 @@ class App extends Component {
 
     componentDidMount() {
         this.poll();
+        document.title = process.env.PUBLIC_URL;
         setInterval(this.poll, 5000);
     }
 

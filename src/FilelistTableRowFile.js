@@ -11,7 +11,7 @@ class FilelistTableRowFile extends Component {
             <tr >
                 <td></td>
                 <td><i className='fa fa-file-code-o'/></td>
-                <td colSpan="6">{this.props.name}</td>
+                <td colSpan="6"><a href="{this.props.name}">{this.props.name}</a></td>
             </tr>
         );
     }

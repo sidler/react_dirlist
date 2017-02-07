@@ -12,25 +12,25 @@
         "backend": true,
         "installer": true,
         "debug": true,
-        "branches": {
-          "core": "master"
-        },
-        "actions": {
-          "delcache": true
-        }
+        "branches": [
+          {"name": "core", "branch" : "master"}
+        ],
+        "actions": [
+          {"type" : "delcache", "enabled": true}
+        ]
       },
       {
         "name": "tame2",
         "backend": false,
         "installer": true,
         "debug": false,
-        "branches": {
-          "core": "master",
-          "core_agp": "master"
-        },
-        "actions": {
-          "delcache": false
-        }
+        "branches": [
+          {"name": "core", "branch" : "master"},
+          {"name": "core_agp", "branch" : "master"}
+        ],
+        "actions": [
+          {"type" : "delcache", "enabled": false}
+        ]
       }
     ],
     "files": [
@@ -40,5 +40,4 @@
       {"name" : "file99" }      
     ]
   }
-
 }
