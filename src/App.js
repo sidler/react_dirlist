@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import './bootstrap.min.css';
 import './App.css';
 import Pageview from './Pageview'
 import FilelistTable from './FilelistTable'
@@ -7,12 +8,14 @@ import ServerCx from './ServerCx'
 
 class App extends Component {
 
+    server = new ServerCx();
 
 
     constructor(props) {
         super(props);
 
         this.poll = this.poll.bind(this);
+        this.deleteFolderAction = this.deleteFolderAction.bind(this);
 
         this.state = {
             serverInfo: {},
@@ -25,13 +28,12 @@ class App extends Component {
     componentDidMount() {
         this.poll();
         document.title = process.env.PUBLIC_URL;
-        setInterval(this.poll, 5000);
+        setInterval(this.poll, 10000);
     }
 
     poll() {
         let self = this;
-        let server = new ServerCx();
-        server.fetchServerData(function (data) {
+        this.server.fetchServerData(function (data) {
             data.pageviewChars = self.parseChars(data);
             self.setState(data);
         });
@@ -51,6 +53,14 @@ class App extends Component {
 
     }
 
+    deleteFolderAction(strPath) {
+        let self = this;
+        this.server.deleteCacheAction(strPath, function (data) {
+            data.pageviewChars = self.parseChars(data);
+            self.setState(data);
+        })
+    }
+
     render(data) {
         let self = this;
         return (
@@ -61,7 +71,7 @@ class App extends Component {
                 </div>
 
                 <div className="row">
-                    <FilelistTable pageView={self.handlePageviewChange} props={this.state.content}/>
+                    <FilelistTable pageView={self.handlePageviewChange} props={this.state.content} deleteFolderAction={self.deleteFolderAction} />
                 </div>
 
                 <div className="row">

@@ -4,8 +4,10 @@
 
 
 import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
 
 class FilelistTableRowFolder extends Component {
+
     render() {
 
         let strBackend = "";
@@ -30,10 +32,11 @@ class FilelistTableRowFolder extends Component {
         });
 
 
+        let self = this;
         let arrActions = this.props.actions.map(function(item, i) {
             if(item.enabled && item.type === "delcache") {
                 return (
-                    <a key={i} onClick="" href="#"><i className='fa fa-trash-o' /> Delete /project/temp/cache</a>
+                    <a id={"del-a-"+i} key={i} onClick={(e) => {self.props.deleteFolderAction(self.props.name); return false;}} href="#"><i className='fa fa-trash-o' /> Delete /project/temp/cache</a>
                 );
             }
 

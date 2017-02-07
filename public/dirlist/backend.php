@@ -8,14 +8,36 @@
  */
 class Backend
 {
-    private $strBasedir = __DIR__."/../../../../";
+//    private $strBasedir = __DIR__."/../../../../";
+    private $strBasedir = __DIR__."/../";
 
 
     public function dispatch()
     {
+        if (!empty($_GET["clearcache"])) {
+            $this->clearCacheDir(($_GET["clearcache"]));
+        }
         return $this->generateListing();
     }
 
+
+    private function clearCacheDir($strDir)
+    {
+        $strDir = realpath($this->strBasedir."/".$strDir."/project/temp/cache");
+        if (strpos($strDir, realpath($this->strBasedir)) === 0 && is_dir($strDir)) {
+            $this->delDirrec($strDir);
+        }
+    }
+
+
+    private function delDirrec($strDir)
+    {
+        $arrFiles = array_diff(scandir($strDir), ['.', '..']);
+        foreach ($arrFiles as $strFile) {
+            (is_dir("$strDir/$strFile")) ? $this->delDirrec("$strDir/$strFile") : unlink("$strDir/$strFile");
+        }
+        return rmdir($strDir);
+    }
 
     private function generateListing()
     {
@@ -23,17 +45,19 @@ class Backend
         $arrFiles = array_diff($arrFiles, [".", "..", ".DS_Store"]);
 
         uasort($arrFiles, function ($strFile1, $strFile2) {
-            if (is_dir($this->strBasedir."/".$strFile1) && is_dir($this->strBasedir."/".$strFile2))
+            if (is_dir($this->strBasedir."/".$strFile1) && is_dir($this->strBasedir."/".$strFile2)) {
                 return strcmp($strFile1, $strFile2);
+            }
 
-            if (is_file($this->strBasedir."/".$strFile1) && is_file($this->strBasedir."/".$strFile2))
+            if (is_file($this->strBasedir."/".$strFile1) && is_file($this->strBasedir."/".$strFile2)) {
                 return strcmp($strFile1, $strFile2);
+            }
 
-            if (is_file($this->strBasedir."/".$strFile1) && is_dir($this->strBasedir."/".$strFile2))
+            if (is_file($this->strBasedir."/".$strFile1) && is_dir($this->strBasedir."/".$strFile2)) {
                 return 1;
-            else
+            } else {
                 return -1;
-
+            }
         });
 
 
@@ -46,7 +70,6 @@ class Backend
             if (@is_file($this->strBasedir."/".$strOneFile)) {
                 $arrReturn["content"]["files"][] = ["name" => $strOneFile];
             } else {
-
                 $arrFolder = [
                     "name"      => $strOneFile,
                     "backend"   => false,
@@ -89,10 +112,7 @@ class Backend
 
 
         return json_encode($arrReturn);
-
     }
-
-
 }
 
 header("Content-Type: application/json; charset=utf-8");

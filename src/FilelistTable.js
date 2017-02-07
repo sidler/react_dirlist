@@ -26,7 +26,7 @@ class FilelistTable extends Component {
 
 
     render() {
-
+        let self = this;
 
 
         if(this.props.props.folders === undefined) {
@@ -43,7 +43,7 @@ class FilelistTable extends Component {
                 arrChars.push(strPrevChar);
             }
 
-            let strFolder = <FilelistTableRowFolder name={item.name} backend={item.backend} installer={item.installer} debug={item.debug} branches={item.branches} actions={item.actions} key={i} />
+            let strFolder = <FilelistTableRowFolder name={item.name} backend={item.backend} installer={item.installer} debug={item.debug} branches={item.branches} actions={item.actions} key={i} deleteFolderAction={self.props.deleteFolderAction} />
 
             return ([strChar, strFolder]);
         });

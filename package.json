@@ -2,13 +2,14 @@
   "name": "dirlist",
   "version": "0.1.0",
   "private": true,
-  "homepage" : "/reactdirlist/dirlist/build",
+  "homepage" : "/",
   "devDependencies": {
     "react-scripts": "0.8.5"
   },
   "dependencies": {
     "react": "^15.4.2",
-    "react-dom": "^15.4.2"
+    "react-dom": "^15.4.2",
+    "whatwg-fetch" : "^1.0"
   },
   "scripts": {
     "start": "react-scripts start",
