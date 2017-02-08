@@ -36,7 +36,7 @@ class FilelistTableRowFolder extends Component {
         let arrActions = this.props.actions.map(function(item, i) {
             if(item.enabled && item.type === "delcache") {
                 return (
-                    <a id={"del-a-"+i} key={i} onClick={(e) => {self.props.deleteFolderAction(self.props.name); return false;}} href="#"><i className='fa fa-trash-o' /> Delete /project/temp/cache</a>
+                    <a id={"del-a-"+i} key={i} onClick={(e) => {self.props.deleteFolderAction(self.props.name); e.preventDefault(); return false;}} href="#"><i className='fa fa-trash-o' /> Delete /project/temp/cache</a>
                 );
             }
 
@@ -48,7 +48,7 @@ class FilelistTableRowFolder extends Component {
             <tr >
                 <td>{this.props.char}</td>
                 <td><i className='fa fa-folder-o' /></td>
-                <td><a href="{this.props.name}">{this.props.name}</a></td>
+                <td><a href={this.props.name}>{this.props.name}</a></td>
                 <td dangerouslySetInnerHTML={{__html: strBackend}} />
                 <td dangerouslySetInnerHTML={{__html: strInstaller}} />
                 <td dangerouslySetInnerHTML={{__html: strDebug}} />
