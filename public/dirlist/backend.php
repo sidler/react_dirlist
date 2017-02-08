@@ -94,6 +94,9 @@ class Backend
                 if (@is_file($this->strBasedir."/".$strOneFile."/.git/HEAD")) {
                     $arrFolder["branches"][] = ["name" => "", "branch" => str_replace("ref: refs/heads/", "", file_get_contents($this->strBasedir."/".$strOneFile."/.git/HEAD"))];
                 }
+                if (@is_file($this->strBasedir."/".$strOneFile."/core/.git/HEAD")) {
+                    $arrFolder["branches"][] = ["name" => "core", "branch" => str_replace("ref: refs/heads/", "", file_get_contents($this->strBasedir."/".$strOneFile."/core/.git/HEAD"))];
+                }
                 if (@is_file($this->strBasedir."/".$strOneFile."/.git/modules/core/HEAD")) {
                     $arrFolder["branches"][] = ["name" => "core", "branch" => str_replace("ref: refs/heads/", "", file_get_contents($this->strBasedir."/".$strOneFile."/.git/modules/core/HEAD"))];
                 }
