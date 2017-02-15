@@ -17,7 +17,8 @@
         ],
         "actions": [
           {"type" : "delcache", "enabled": true}
-        ]
+        ],
+        "size" : "12 M"
       },
       {
         "name": "tame2",
@@ -30,14 +31,15 @@
         ],
         "actions": [
           {"type" : "delcache", "enabled": false}
-        ]
+        ],
+        "size" : "1.3 M"
       }
     ],
     "files": [
-      {"name" : "file1" },
-      {"name" : "file2" },
-      {"name" : "file9" },
-      {"name" : "file99" }      
+      {"name" : "file1", "size" : "1kb" },
+      {"name" : "file2", "size" : "2kb" },
+      {"name" : "file9", "size" : "1.4kb" },
+      {"name" : "file99", "size" : "0.3kb" }
     ]
   }
 }

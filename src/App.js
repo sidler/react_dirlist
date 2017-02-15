@@ -5,11 +5,12 @@ import Pageview from './Pageview'
 import FilelistTable from './FilelistTable'
 import ServerInfo from './ServerInfo'
 import ServerCx from './ServerCx'
+import SettingsStrip from './SettingsStrip'
+import Settings from "./Settings";
 
 class App extends Component {
 
     server = new ServerCx();
-
 
     constructor(props) {
         super(props);
@@ -68,6 +69,10 @@ class App extends Component {
             <div className="container">
                 <div className="row justify-content-center">
                     <Pageview chars={this.state.pageviewChars} />
+                </div>
+
+                <div className="row justify-content-end">
+                    <SettingsStrip />
                 </div>
 
                 <div className="row">

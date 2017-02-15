@@ -68,7 +68,13 @@ class Backend
 
         foreach ($arrFiles as $strOneFile) {
             if (@is_file($this->strBasedir."/".$strOneFile)) {
-                $arrReturn["content"]["files"][] = ["name" => $strOneFile];
+                $arrFile = ["name" => $strOneFile];
+
+                if (!empty($_GET['showSize'])) {
+                    $arrFile["size"] = $this->bytesToString($this->getSize($this->strBasedir."/".$strOneFile));
+                }
+                $arrReturn["content"]["files"][] = $arrFile;
+
             } else {
                 $arrFolder = [
                     "name"      => $strOneFile,
@@ -108,6 +114,10 @@ class Backend
                     $arrFolder["actions"][] = ["type" => "delcache", "enabled" => true];
                 }
 
+                if (!empty($_GET['showSize'])) {
+                    $arrFolder["size"] = $this->bytesToString($this->getSize($this->strBasedir."/".$strOneFile));
+                }
+
                 $arrReturn["content"]["folders"][] = $arrFolder;
             }
 
@@ -115,6 +125,39 @@ class Backend
 
 
         return json_encode($arrReturn);
+    }
+
+    private function getSize($strPath)
+    {
+        $intBytes = 0;
+        if (is_file($strPath)) {
+            $intBytes = filesize($strPath);
+        } elseif (is_dir($strPath)) {
+            $arrFiles = scandir($strPath);
+            $arrFiles = array_diff($arrFiles, [".", "..", ".DS_Store"]);
+            foreach ($arrFiles as $strOneFile) {
+                $intBytes += $this->getSize($strPath.DIRECTORY_SEPARATOR.$strOneFile);
+            }
+        }
+
+        return $intBytes;
+    }
+
+    private function bytesToString($intBytes)
+    {
+        $strReturn = "";
+        if ($intBytes >= 0) {
+            $arrFormats = array("B", "KB", "MB", "GB", "TB");
+            $intTemp = $intBytes;
+            $intCounter = 0;
+            while ($intTemp > 1024) {
+                $intTemp = $intTemp / 1024;
+                $intCounter++;
+            }
+            $strReturn = number_format($intTemp, 2)." ".$arrFormats[$intCounter];
+            return $strReturn;
+        }
+        return $strReturn;
     }
 }
 

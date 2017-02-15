@@ -7,6 +7,7 @@ import React, { Component } from 'react';
 import FilelistTableRowFolder from './FilelistTableRowFolder'
 import FilelistTableRowFile from './FilelistTableRowFile'
 import FilelistTableRowChar from './FilelistTableRowChar'
+import Settings from './Settings';
 
 class FilelistTable extends Component {
 
@@ -43,7 +44,7 @@ class FilelistTable extends Component {
                 arrChars.push(strPrevChar);
             }
 
-            let strFolder = <FilelistTableRowFolder name={item.name} backend={item.backend} installer={item.installer} debug={item.debug} branches={item.branches} actions={item.actions} key={i} deleteFolderAction={self.props.deleteFolderAction} />
+            let strFolder = <FilelistTableRowFolder item={item} />
 
             return ([strChar, strFolder]);
         });
@@ -52,7 +53,7 @@ class FilelistTable extends Component {
 
         let files = this.props.props.files.map(function(item, i) {
             return(
-                <FilelistTableRowFile name={item.name} key={i} />
+                <FilelistTableRowFile item={item} key={i} />
             );
         });
 
@@ -70,6 +71,7 @@ class FilelistTable extends Component {
                     <th>Debug</th>
                     <th>Branch</th>
                     <th>Actions</th>
+                    {Settings.getInstance().getShowSize() ? <th>Size</th> : null}
                 </tr>
                 </thead>
                 <tbody>

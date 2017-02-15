@@ -4,12 +4,21 @@
 
 
 import React, { Component } from 'react';
+import Settings from './Settings';
 
 class FilelistTableRowChar extends Component {
     render() {
+
+
+
+        let colspan = 8;
+        if(Settings.getInstance().getShowSize()) {
+            colspan++;
+        }
+
         return (
             <tr >
-                <td colSpan="8" className="font-weight-bold"><a name={this.props.char} />{this.props.char}</td>
+                <td colSpan={colspan} className="font-weight-bold"><a name={this.props.char} />{this.props.char}</td>
             </tr>
         );
     }
