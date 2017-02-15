@@ -6,7 +6,7 @@ class Settings {
 
     static _instance = new Settings();
 
-    _showSize = true;
+    _showSize = false;
 
     constructor() {
         if(Settings._instance){
