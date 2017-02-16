@@ -44,7 +44,7 @@ class FilelistTable extends Component {
                 arrChars.push(strPrevChar);
             }
 
-            let strFolder = <FilelistTableRowFolder item={item} />
+            let strFolder = <FilelistTableRowFolder item={item} deleteFolderAction={self.props.deleteFolderAction}/>
 
             return ([strChar, strFolder]);
         });
