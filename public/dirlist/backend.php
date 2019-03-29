@@ -109,6 +109,9 @@ class Backend
                 if (@is_file($this->strBasedir."/".$strOneFile."/.git/modules/core_agp/HEAD")) {
                     $arrFolder["branches"][] = ["name" => "core_agp", "branch" => str_replace("ref: refs/heads/", "", file_get_contents($this->strBasedir."/".$strOneFile."/.git/modules/core_agp/HEAD"))];
                 }
+                if (@is_file($this->strBasedir."/".$strOneFile."/.git/modules/core_customer/HEAD")) {
+                    $arrFolder["branches"][] = ["name" => "core_customer", "branch" => str_replace("ref: refs/heads/", "", file_get_contents($this->strBasedir."/".$strOneFile."/.git/modules/core_customer/HEAD"))];
+                }
 
                 if (@is_dir($this->strBasedir."/".$strOneFile."/project/temp/cache")) {
                     $arrFolder["actions"][] = ["type" => "delcache", "enabled" => true];
